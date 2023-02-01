@@ -1,4 +1,5 @@
 import hashlib
+import gc
 import json
 import os.path
 
@@ -36,11 +37,14 @@ def cache(subsection):
 
 def calculate_sha256(filename):
     hash_sha256 = hashlib.sha256()
-    blksize = 1024 * 128
+    blksize = 1024 * 1024
 
     with open(filename, "rb") as f:
         for chunk in iter(lambda: f.read(blksize), b""):
             hash_sha256.update(chunk)
+            del chunk
+            gc.collect()
+
 
     return hash_sha256.hexdigest()
 
