@@ -4,7 +4,7 @@ from PIL import Image
 
 from modules import shared, images, devices, scripts, scripts_postprocessing, ui_common, generation_parameters_copypaste
 from modules.shared import opts
-
+from modules.fiction import fiction_root_path
 
 def run_postprocessing(extras_mode, image, image_folder, input_dir, output_dir, show_extras_results, *args, save_output: bool = True):
     devices.torch_gc()
@@ -15,6 +15,9 @@ def run_postprocessing(extras_mode, image, image_folder, input_dir, output_dir, 
     image_data = []
     image_names = []
     outputs = []
+
+    input_dir = os.path.join(fiction_root_path, input_dir)
+    output_dir = os.path.join(fiction_root_path, output_dir)
 
     if extras_mode == 1:
         for img in image_folder:

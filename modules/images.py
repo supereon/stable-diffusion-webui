@@ -16,7 +16,7 @@ from PIL import Image, ImageFont, ImageDraw, PngImagePlugin
 from fonts.ttf import Roboto
 import string
 import json
-
+from modules.fiction import fiction_root_path
 from modules import sd_samplers, shared, script_callbacks
 from modules.shared import opts, cmd_opts
 
@@ -482,6 +482,9 @@ def save_image(image, path, basename, seed=None, prompt=None, extension='png', i
         txt_fullfn (`str` or None):
             If a text file is saved for this image, this will be its full path. Otherwise None.
     """
+
+    path = f"{fiction_root_path}{path}"
+
     namegen = FilenameGenerator(p, seed, prompt, image)
 
     if save_to_dirs is None:
