@@ -37,18 +37,14 @@ def cache(subsection):
 
 def calculate_sha256(filename: str):
 
-    m = hashlib.sha256(filename.encode('UTF-8'))
+    hash_sha256 = hashlib.sha256()
+    blksize = 1024 * 1024
 
-    return m.hexdigest()
+    with open(filename, "rb") as f:
+        for chunk in iter(lambda: f.read(blksize), b""):
+            hash_sha256.update(chunk)
 
-    # hash_sha256 = hashlib.sha256()
-    # blksize = 1024 * 1024
-
-    # with open(filename, "rb") as f:
-    #     for chunk in iter(lambda: f.read(blksize), b""):
-    #         hash_sha256.update(chunk)
-
-    # return hash_sha256.hexdigest()
+    return hash_sha256.hexdigest()
 
 
 def sha256_from_cache(filename, title):

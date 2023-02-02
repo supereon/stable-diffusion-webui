@@ -33,7 +33,7 @@ def apply_optimizations():
 
     ldm.modules.diffusionmodules.model.nonlinearity = silu
     ldm.modules.diffusionmodules.openaimodel.th = sd_hijack_unet.th
-    
+
     optimization_method = None
 
     if cmd_opts.force_enable_xformers or (cmd_opts.xformers and shared.xformers_available and torch.version.cuda and (6, 0) <= torch.cuda.get_device_capability(shared.device) <= (9, 0)):
@@ -119,7 +119,7 @@ class StableDiffusionModelHijack:
 
     def undo_hijack(self, m):
         if type(m.cond_stage_model) == xlmr.BertSeriesModelWithTransformation:
-            m.cond_stage_model = m.cond_stage_model.wrapped 
+            m.cond_stage_model = m.cond_stage_model.wrapped
 
         elif type(m.cond_stage_model) == sd_hijack_clip.FrozenCLIPEmbedderWithCustomWords:
             m.cond_stage_model = m.cond_stage_model.wrapped
@@ -150,6 +150,7 @@ class StableDiffusionModelHijack:
         self.comments = []
 
     def get_prompt_lengths(self, text):
+
         _, token_count = self.clip.process_texts([text])
 
         return token_count, self.clip.get_target_prompt_token_count(token_count)
