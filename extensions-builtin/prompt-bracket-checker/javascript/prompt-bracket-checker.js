@@ -5,6 +5,8 @@
 // If there's a mismatch, the keyword counter turns red and if you hover on it, a tooltip tells you what's wrong.
 
 function checkBrackets(evt, textArea, counterElt) {
+  if (!counterElt) return;
+
   errorStringParen =
     "(...) - Different number of opening and closing parentheses detected.\n";
   errorStringSquare =
@@ -84,7 +86,7 @@ function checkBrackets(evt, textArea, counterElt) {
 
   if (counterElt && counterElt.title != "") {
     counterElt.classList.add("error");
-  } else {
+  } else if (counterElt) {
     counterElt.classList.remove("error");
   }
 }
