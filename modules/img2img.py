@@ -5,7 +5,7 @@ import traceback
 
 import numpy as np
 from PIL import Image, ImageOps, ImageFilter, ImageEnhance, ImageChops
-
+from modules.fiction import fiction_root_path
 from modules import devices, sd_samplers
 from modules.generation_parameters_copypaste import create_override_settings_dict
 from modules.processing import Processed, StableDiffusionProcessingImg2Img, process_images
@@ -160,7 +160,10 @@ def img2img(id_task: str, mode: int, prompt: str, negative_prompt: str, prompt_s
     if is_batch:
         assert not shared.cmd_opts.hide_ui_dir_config, "Launched with --hide-ui-dir-config, batch img2img disabled"
 
-        process_batch(p, img2img_batch_input_dir, img2img_batch_output_dir, img2img_batch_inpaint_mask_dir, args)
+        input_dir = f"{fiction_root_path}{img2img_batch_input_dir}"
+        output_dir = f"{fiction_root_path}{img2img_batch_output_dir}"
+        mask_dir = f"{fiction_root_path}{img2img_batch_inpaint_mask_dir}"
+        process_batch(p, input_dir, output_dir, mask_dir, args)
 
         processed = Processed(p, [], p.seed, "")
     else:

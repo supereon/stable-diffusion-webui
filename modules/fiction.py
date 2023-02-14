@@ -1,1 +1,1 @@
-fiction_root_path = "/home/ubuntu/aim/workspace/"
+fiction_root_path = "/home/ubuntu/aim/workspace"
