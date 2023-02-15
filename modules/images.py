@@ -489,7 +489,7 @@ def save_image(image, path, basename, seed=None, prompt=None, extension='png', i
             If a text file is saved for this image, this will be its full path. Otherwise None.
     """
 
-    path = f"{fiction_root_path}{path}"
+    path = f"{fiction_root_path}/{path}"
 
     namegen = FilenameGenerator(p, seed, prompt, image)
 
